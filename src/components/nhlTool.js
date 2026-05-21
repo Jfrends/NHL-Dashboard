@@ -209,7 +209,7 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
       .style("box-sizing", "border-box");
 
     wrapper.html(`
-      <label class="${isLeft ? 'left-search-label' : 'right-search-label'}" style="font-weight: 600; display: block; margin-bottom: 6px; font-size: 13px; color: #475569;">Right Attacking Shooter</label>
+      <label class="${isLeft ? 'left-search-label' : 'right-search-label'}" ...>${isLeft ? "Left Attacking Shooter" : "Right Attacking Shooter"}</label> 
       <input type="text" class="${isLeft ? 'left-search-input' : 'right-search-input'}" placeholder="Search left player..." autocomplete="off" 
         style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13.5px; outline: none; background: #fff; transition: border-color 0.15s ease;">
       <div class="dropdown-menu" style="position: absolute; left: 0; right: 0; top: 100%; z-index: 3000; display: none; max-height: 180px; overflow-y: auto; background: white; border: 1px solid #cbd5e1; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-top: 4px;"></div>
