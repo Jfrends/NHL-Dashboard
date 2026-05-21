@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.4">
+<title>NHL Dashboard</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.b050d634.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.b050d634.css">
+<link rel="modulepreload" href="./_observablehq/client.2ea47d66.js">
+<link rel="modulepreload" href="./_observablehq/runtime.607a8173.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.043dc60f.js">
+<link rel="modulepreload" href="./_npm/arquero@8.0.3/93264e51.js">
+<link rel="modulepreload" href="./_import/components/nhlTool.b21b2528.js">
+<link rel="modulepreload" href="./_import/components/rinkMap.ea80870f.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/66d82917.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="./_npm/acorn@8.16.0/16003489.js">
+<link rel="modulepreload" href="./_npm/@uwdata/flechette@2.5.0/ed0de994.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/87adea64.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.2/3785bf2d.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/720b7f0a.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.1.0/d4ec0aa1.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.3/42820bfa.js">
+<link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
+<script type="module">
+
+import {define} from "./_observablehq/client.2ea47d66.js";
+import {registerFile} from "./_observablehq/stdlib.043dc60f.js";
+
+registerFile("./goalies.csv", {"name":"./goalies.csv","mimeType":"text/csv","path":"./_file/goalies.2fe2a2db.csv","lastModified":1779324909667,"size":93386});
+registerFile("./shot_data_2025.csv", {"name":"./shot_data_2025.csv","mimeType":"text/csv","path":"./_file/shot_data_2025.8f82d159.csv","lastModified":1779312438957,"size":46413919});
+registerFile("./skaters.csv", {"name":"./skaters.csv","mimeType":"text/csv","path":"./_file/skaters.9a7e1f1a.csv","lastModified":1779316082648,"size":3483132});
+registerFile("./teams.csv", {"name":"./teams.csv","mimeType":"text/csv","path":"./_file/teams.dc1ce57c.csv","lastModified":1779326834101,"size":99689});
+
+define({id: "3977b6d6", inputs: ["FileAttachment"], outputs: ["aq","initComparisonTool","shotRaw","playerRaw","goalieRaw","teamRaw"], body: async (FileAttachment) => {
+const [aq, {initComparisonTool}] = await Promise.all([import("./_npm/arquero@8.0.3/93264e51.js"), import("./_import/components/nhlTool.b21b2528.js")]);
+
+/**
+ * Load datasets
+ */
+const [shotRaw, playerRaw, goalieRaw, teamRaw] = await Promise.all([
+  FileAttachment("./shot_data_2025.csv").csv({ typed: true }),
+  FileAttachment("./skaters.csv").csv({ typed: true }),
+  FileAttachment("./goalies.csv").csv({ typed: true }),
+  FileAttachment("./teams.csv").csv({ typed: true })
+]);
+
+/**
+ * Initialize visualization after DOM is ready
+ */
+setTimeout(() => {
+  const container = document.querySelector("#chart-mount");
+
+  if (!container) return;
+
+  const width = container.getBoundingClientRect().width;
+  const height = container.getBoundingClientRect().height;
+
+  initComparisonTool(container, {
+    shotData: aq.from(shotRaw).filter(d => d.shotWasOnGoal === 1 && d.isPlayoffGame == 0),
+    playerData: aq.from(playerRaw),
+    goalieData: aq.from(goalieRaw),
+    teamData: aq.from(teamRaw)
+  }, width, height);
+
+}, 150);
+return {aq,initComparisonTool,shotRaw,playerRaw,goalieRaw,teamRaw};
+}});
+
+</script>
+</head>
+<body>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<style>
+:root {
+  --card-width: min(1200px, 95vw);
+  --viz-height: 700px;
+}
+
+.page-header {
+  max-width: var(--card-width);
+  margin: 0 auto 10px auto;
+  padding: 10px 0;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.page-subtitle {
+  color: #666;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+#nhl-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#nhl-dashboard {
+  width: var(--card-width);
+  height: var(--viz-height);
+  padding: 0;
+  border-radius: 12px;
+  overflow: visible;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  background: white;
+}
+
+#chart-mount {
+  width: 100%;
+  height: 100%;
+}
+
+#nhl-dashboard input,
+#nhl-dashboard select,
+#nhl-dashboard textarea {
+  background: white;
+  color: #111;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
+</style>
+<div class="page-header">
+  <h1>NHL Player Comparison Tool</h1>
+  <div class="page-subtitle">
+    Interactive shot, skater, goalie, and team comparison dashboard
+  </div>
+</div>
+<div id="nhl-wrapper">
+  <div id="nhl-dashboard" class="card">
+    <div id="chart-mount"></div>
+  </div>
+</div>
+<div class="observablehq observablehq--block"><!--:3977b6d6:--></div>
+</main>
+<footer id="observablehq-footer">
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2026-05-20T22:41:50">May 20, 2026</a>.</div>
+</footer>
+</div>
+</body>
+</html>
