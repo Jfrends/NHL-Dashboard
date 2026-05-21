@@ -9,11 +9,11 @@
     "observable": "observable"
   },
   "dependencies": {
-    "@observablehq/framework": "^1.13.4",
     "d3-dsv": "^3.0.1",
     "d3-time-format": "^4.1.0"
   },
   "devDependencies": {
+    "@observablehq/framework": "^1.13.4",
     "rimraf": "^5.0.5"
   },
   "engines": {
