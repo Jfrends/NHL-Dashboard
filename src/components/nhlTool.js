@@ -564,8 +564,8 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
     }
 
     profileBanner.html(`
-      <div style="flex: 1; display: flex; box-sizing: border-box;">${createProfileCardHTML(leftDbRows, leftStats, leftId, activeLeftPlayer, leftHandedness, true, activeMode === "skater" ? "Select left shooter to view overview stats" : activeMode === "goalie" ? "Select left defending goalie" : "Select left team analytics code")}</div>
-      <div style="flex: 1; display: flex; box-sizing: border-box;">${createProfileCardHTML(rightDbRows, rightStats, rightId, activeRightPlayer, rightHandedness, false, activeMode === "skater" ? "Select right shooter to view overview stats" : activeMode === "goalie" ? "Select right defending goalie" : "Select right team analytics code")}</div>
+      <div style="flex: 1; display: flex; box-sizing: border-box;">${createProfileCardHTML(leftDbRows, leftStats, leftId, activeLeftPlayer, leftHandedness, true, activeMode === "skater" ? "Select left shooter" : activeMode === "goalie" ? "Select left defending goalie" : "Select left team")}</div>
+      <div style="flex: 1; display: flex; box-sizing: border-box;">${createProfileCardHTML(rightDbRows, rightStats, rightId, activeRightPlayer, rightHandedness, false, activeMode === "skater" ? "Select right shooter" : activeMode === "goalie" ? "Select right defending goalie" : "Select right team")}</div>
     `);
 
     const leftShots = plottedLeftShots.map(d => ({ 
