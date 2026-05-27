@@ -65,6 +65,9 @@ toc: false
   <div class="page-subtitle">
     Interactive shot, skater, goalie, and team comparison dashboard
   </div>
+  <div class="page-subtitle">
+    Repository: <a href="https://github.com/Jfrends/NHL-Dashboard">https://github.com/Jfrends/NHL-Dashboard</a>
+  </div>
 </div>
 
 <div id="nhl-wrapper">
