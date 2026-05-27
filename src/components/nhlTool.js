@@ -739,6 +739,7 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
           <div style="margin-bottom: 4px;"><strong>Time:</strong> ${Math.floor((d.time%1200)/60)}:${(d.time%60)<10?'0':''}${d.time%60} (P${d.period})</div>
           <div style="margin-bottom: 4px;"><strong>Situation:</strong> ${sitHTML}</div>
           <div style="margin-bottom: 4px;"><strong>Result:</strong> ${resHTML}</div>
+          <div style="margin-bottom: 4px;"><strong>Shot Type:</strong> ${d.shotType}</div>
           <div><strong>Distance:</strong> ${Math.round(d.shotDistance) || 0} ft</div>
         `).style("visibility", "visible");
       })
