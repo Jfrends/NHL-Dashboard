@@ -224,11 +224,6 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
     input.onfocus = () => { input.style.borderColor = "#94a3b8"; };
     input.onblur = () => { input.style.borderColor = "#cbd5e1"; };
 
-    function getRandomSelection(mode) {
-      const sourceList = mode === "skater" ? uniqueSkaters : mode === "goalie" ? uniqueGoalies : uniqueTeamsNames;
-      return sourceList[Math.floor(Math.random() * sourceList.length)];
-    }
-
     function renderDropdown(filterText) {
       menu.innerHTML = "";
       const sourceList = activeMode === "skater" ? uniqueSkaters : activeMode === "goalie" ? uniqueGoalies : uniqueTeamsNames;
@@ -768,18 +763,5 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
 
   container.appendChild(root.node());
 
-  // 1. Pick random values
-  const randLeft = getRandomSelection(activeMode);
-  const randRight = getRandomSelection(activeMode);
-
-  // 2. Set the state variables
-  activeLeftPlayer = activeMode === "team" ? teamAbbrMap[randLeft] : randLeft;
-  activeRightPlayer = activeMode === "team" ? teamAbbrMap[randRight] : randRight;
-
-  // 3. Update the visible input fields
-  root.select(".left-search-input").property("value", randLeft);
-  root.select(".right-search-input").property("value", randRight);
-
-  // 4. Trigger the first render
   updateDashboard();
 }
