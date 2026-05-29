@@ -376,7 +376,6 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
     const targetSituations = schemaSitMap[activeSituation];
 
     const filterDbRows = (name, dbObjects) => {
-      console.log(name);
       // If name is null/undefined, return empty array immediately
       if (!name) return [];
       
