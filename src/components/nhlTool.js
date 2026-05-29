@@ -365,32 +365,18 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
     const targetSituations = schemaSitMap[activeSituation];
 
     const filterDbRows = (name, dbObjects) => {
-      if (name === "" || !dbObjects || !Array.isArray(dbObjects)) return [];
+      if (name === "" || !dbObjects || dbObjects.length === 0) return [];
       
-      const fieldMatch = activeMode === "team" ? "team" : "name";
+      // Look at the first object to see if it has 'team' or 'name'
+      // This is safer than relying on the mode
+      const sample = dbObjects[0];
+      const fieldMatch = "team" in sample ? "team" : "name";
       
       return dbObjects.filter(d => {
-        // 1. Ensure the object exists
-        if (!d) return false;
-
-        // 2. Safely check existence of the fieldMatch property
-        const matchValue = d[fieldMatch];
-        if (matchValue === undefined || matchValue === null) {
-          return false; // Skip this object
-        }
-
-        // 3. Safely check existence of situation
-        const situation = d.situation;
-        if (situation === undefined || situation === null) {
-          return false; // Skip this object
-        }
-
-        // 4. Perform the comparison
-        // We use String() to ensure we can call .toLowerCase()
-        const matchesName = String(matchValue).toLowerCase() === name.toLowerCase();
-        const matchesSituation = targetSituations.includes(situation);
-
-        return matchesName && matchesSituation;
+        if (!d || d[fieldMatch] === undefined || d.situation === undefined) return false;
+        
+        return String(d[fieldMatch]).toLowerCase() === name.toLowerCase() && 
+               targetSituations.includes(d.situation);
       });
     };
 
