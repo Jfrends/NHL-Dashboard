@@ -365,6 +365,7 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
     const targetSituations = schemaSitMap[activeSituation];
 
     const filterDbRows = (name, dbObjects) => {
+      console.log(name);
       if (name === "" || !dbObjects || dbObjects.length === 0) return [];
       
       // Look at the first object to see if it has 'team' or 'name'
