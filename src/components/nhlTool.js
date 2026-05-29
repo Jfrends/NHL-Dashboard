@@ -369,11 +369,16 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
       const fieldMatch = activeMode === "team" ? "team" : "name";
       
       return dbObjects.filter(d => {
-        // Check if the property exists and is a string
-        const val = d[fieldMatch];
-        if (typeof val !== 'string') return false; 
+        // Log a warning if the field is missing so you can inspect the data
+        if (d[fieldMatch] === undefined || d[fieldMatch] === null) {
+          console.warn(`Found object missing expected field: ${fieldMatch}`, d);
+          return false;
+        }
         
-        return val.toLowerCase() === name.toLowerCase() && targetSituations.includes(d.situation);
+        // Ensure it's a string before calling toLowerCase()
+        const value = String(d[fieldMatch]);
+        
+        return value.toLowerCase() === name.toLowerCase() && targetSituations.includes(d.situation);
       });
     };
 
