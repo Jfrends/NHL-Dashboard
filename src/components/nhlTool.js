@@ -79,31 +79,41 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
 
     tab.on("click", function() {
       activeMode = m.id;
-      activeLeftPlayer = "";
-      activeRightPlayer = "";
 
-      setRandomSelection(activeMode);
-      
+      // 1. Get the source list
+      const sourceList = activeMode === "skater" ? uniqueSkaters : 
+                        activeMode === "goalie" ? uniqueGoalies : 
+                        uniqueTeamsNames;
+
+      // 2. Pick random names
+      const leftName = sourceList[Math.floor(Math.random() * sourceList.length)];
+      const rightName = sourceList[Math.floor(Math.random() * sourceList.length)];
+
+      // 3. Set the global variables explicitly
+      if (activeMode === "team") {
+        activeLeftPlayer = teamAbbrMap[leftName];
+        activeRightPlayer = teamAbbrMap[rightName];
+      } else {
+        activeLeftPlayer = leftName;
+        activeRightPlayer = rightName;
+      }
+
+      // 4. Update the UI inputs
+      root.select(".left-search-input").property("value", leftName);
+      root.select(".right-search-input").property("value", rightName);
+
+      // 5. Update visual tab styles
       modeTabRow.selectAll("div")
         .style("color", "#64748b")
         .style("border-bottom", "2px solid transparent");
-
       d3.select(this)
         .style("color", "#2563eb")
         .style("border-bottom", "2px solid #2563eb");
 
-      const isSkater = activeMode === "skater";
-      const isGoalie = activeMode === "goalie";
-      
-      root.select(".left-search-label").text(isSkater ? "Left Attacking Shooter" : isGoalie ? "Left Defending Goalie" : "Left Attacking Team");
-      root.select(".left-search-input").attr("placeholder", isSkater ? "Search left player..." : isGoalie ? "Search left goalie..." : "Search left franchise name...").property("value", "");
-      root.select(".right-search-label").text(isSkater ? "Right Attacking Shooter" : isGoalie ? "Right Defending Goalie" : "Right Attacking Team");
-      root.select(".right-search-input").attr("placeholder", isSkater ? "Search right player..." : isGoalie ? "Search right goalie..." : "Search right franchise name...").property("value", "");
-
+      // 6. Refresh
       lastUpdatedSide = "filter";
       updateDashboard();
     });
-  });
 
   const topFilterRow = root.append("div")
     .style("display", "flex")
