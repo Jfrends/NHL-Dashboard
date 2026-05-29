@@ -765,33 +765,35 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
 
   container.appendChild(root.node());
 
+  const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
   function setRandomSelection(mode) {
-  const modeData = {
-    skater: uniqueSkaters,
-    goalie: uniqueGoalies,
-    team: uniqueTeamsNames
-  };
+    const modeData = {
+      skater: uniqueSkaters,
+      goalie: uniqueGoalies,
+      team: uniqueTeamsNames
+    };
 
-  const source = modeData[mode];
-  
-  // Pick random names
-  activeLeftPlayer = getRandom(source);
-  activeRightPlayer = getRandom(source);
+    const source = modeData[mode];
+    
+    // Pick random names
+    activeLeftPlayer = getRandom(source);
+    activeRightPlayer = getRandom(source);
 
-  // If it's a team, we need the display name, not the abbreviation
-  const displayLeft = mode === "team" ? teamAbbrToName[activeLeftPlayer] : activeLeftPlayer;
-  const displayRight = mode === "team" ? teamAbbrToName[activeRightPlayer] : activeRightPlayer;
+    // If it's a team, we need the display name, not the abbreviation
+    const displayLeft = mode === "team" ? teamAbbrToName[activeLeftPlayer] : activeLeftPlayer;
+    const displayRight = mode === "team" ? teamAbbrToName[activeRightPlayer] : activeRightPlayer;
 
-  // Update the actual input fields
-  root.select(".left-search-input").property("value", displayLeft);
-  root.select(".right-search-input").property("value", displayRight);
-  
-  // Sync the internal state for teams
-  if (mode === "team") {
-      activeLeftPlayer = teamAbbrMap[displayLeft];
-      activeRightPlayer = teamAbbrMap[displayRight];
+    // Update the actual input fields
+    root.select(".left-search-input").property("value", displayLeft);
+    root.select(".right-search-input").property("value", displayRight);
+    
+    // Sync the internal state for teams
+    if (mode === "team") {
+        activeLeftPlayer = teamAbbrMap[displayLeft];
+        activeRightPlayer = teamAbbrMap[displayRight];
+    }
   }
-}
 
   setRandomSelection("skater");
   updateDashboard();
