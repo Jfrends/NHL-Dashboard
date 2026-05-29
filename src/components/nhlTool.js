@@ -770,6 +770,8 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
     team: uniqueTeamsNames
   };
 
+  const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
   const source = modeData[activeMode];
   activeLeftPlayer = getRandom(source);
   activeRightPlayer = getRandom(source);
