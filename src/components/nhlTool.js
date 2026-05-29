@@ -763,5 +763,23 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
 
   container.appendChild(root.node());
 
+  // Add this logic before the final updateDashboard()
+  const modeData = {
+    skater: uniqueSkaters,
+    goalie: uniqueGoalies,
+    team: uniqueTeamsNames
+  };
+
+  const source = modeData[activeMode];
+  activeLeftPlayer = getRandom(source);
+  activeRightPlayer = getRandom(source);
+
+  // Sync input values (Handling team mapping if necessary)
+  const displayLeft = activeMode === "team" ? teamAbbrToName[activeLeftPlayer] : activeLeftPlayer;
+  const displayRight = activeMode === "team" ? teamAbbrToName[activeRightPlayer] : activeRightPlayer;
+
+  root.select(".left-search-input").property("value", displayLeft);
+  root.select(".right-search-input").property("value", displayRight);
+
   updateDashboard();
 }
