@@ -114,6 +114,7 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
       lastUpdatedSide = "filter";
       updateDashboard();
     });
+  });
 
   const topFilterRow = root.append("div")
     .style("display", "flex")
