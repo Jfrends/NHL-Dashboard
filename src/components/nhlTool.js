@@ -367,7 +367,14 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
     const filterDbRows = (name, dbObjects) => {
       if (name === "") return [];
       const fieldMatch = activeMode === "team" ? "team" : "name";
-      return dbObjects.filter(d => d[fieldMatch]?.toLowerCase() === name.toLowerCase() && targetSituations.includes(d.situation));
+      
+      return dbObjects.filter(d => {
+        // Check if the property exists and is a string
+        const val = d[fieldMatch];
+        if (typeof val !== 'string') return false; 
+        
+        return val.toLowerCase() === name.toLowerCase() && targetSituations.includes(d.situation);
+      });
     };
 
     const leftDbRows = activeMode === "skater" ? filterDbRows(activeLeftPlayer, allSkaterObjects) : activeMode === "goalie" ? filterDbRows(activeLeftPlayer, allGoalieObjects) : filterDbRows(activeLeftPlayer, allTeamObjects);
