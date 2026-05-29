@@ -81,6 +81,8 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
       activeMode = m.id;
       activeLeftPlayer = "";
       activeRightPlayer = "";
+
+      setRandomSelection(activeMode);
       
       modeTabRow.selectAll("div")
         .style("color", "#64748b")
@@ -763,25 +765,34 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
 
   container.appendChild(root.node());
 
-  // Add this logic before the final updateDashboard()
+  function setRandomSelection(mode) {
   const modeData = {
     skater: uniqueSkaters,
     goalie: uniqueGoalies,
     team: uniqueTeamsNames
   };
 
-  const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
-
-  const source = modeData[activeMode];
+  const source = modeData[mode];
+  
+  // Pick random names
   activeLeftPlayer = getRandom(source);
   activeRightPlayer = getRandom(source);
 
-  // Sync input values (Handling team mapping if necessary)
-  const displayLeft = activeMode === "team" ? teamAbbrToName[activeLeftPlayer] : activeLeftPlayer;
-  const displayRight = activeMode === "team" ? teamAbbrToName[activeRightPlayer] : activeRightPlayer;
+  // If it's a team, we need the display name, not the abbreviation
+  const displayLeft = mode === "team" ? teamAbbrToName[activeLeftPlayer] : activeLeftPlayer;
+  const displayRight = mode === "team" ? teamAbbrToName[activeRightPlayer] : activeRightPlayer;
 
+  // Update the actual input fields
   root.select(".left-search-input").property("value", displayLeft);
   root.select(".right-search-input").property("value", displayRight);
+  
+  // Sync the internal state for teams
+  if (mode === "team") {
+      activeLeftPlayer = teamAbbrMap[displayLeft];
+      activeRightPlayer = teamAbbrMap[displayRight];
+  }
+}
 
+  setRandomSelection("skater");
   updateDashboard();
 }
