@@ -596,19 +596,35 @@ export function initComparisonTool(container, { shotData, playerData, goalieData
       <div style="flex: 1; display: flex; box-sizing: border-box;">${createProfileCardHTML(rightDbRows, rightStats, rightId, activeRightPlayer, rightHandedness, false, activeMode === "skater" ? "Select right shooter" : activeMode === "goalie" ? "Select right defending goalie" : "Select right team")}</div>
     `);
 
-    const leftShots = plottedLeftShots.map(d => ({ 
+    const leftShots = plottedLeftShots.map(d => {
+    // We want left shots to have a negative X. 
+    // If the actual X is positive (on the right), we need to flip it.
+    const needsFlipping = d.arenaAdjustedXCord > 0;
+    const flipFactor = needsFlipping ? -1 : 1;
+    
+    return { 
       ...d, 
       side: "left", 
-      displayX: -Math.abs(d.arenaAdjustedXCordABS), 
-      displayY: d.arenaAdjustedYCord
-    }));
+      // This will flip both X and Y if the shot was originally on the right
+      displayX: d.arenaAdjustedXCord * flipFactor, 
+      displayY: d.arenaAdjustedYCord * flipFactor
+    };
+  });
+
+  const rightShots = plottedRightShots.map(d => {
+    // We want right shots to have a positive X. 
+    // If the actual X is negative (on the left), we need to flip it.
+    const needsFlipping = d.arenaAdjustedXCord < 0;
+    const flipFactor = needsFlipping ? -1 : 1;
     
-    const rightShots = plottedRightShots.map(d => ({ 
+    return { 
       ...d, 
       side: "right", 
-      displayX: Math.abs(d.arenaAdjustedXCordABS), 
-      displayY: -d.arenaAdjustedYCord
-    }));
+      // This will flip both X and Y if the shot was originally on the left
+      displayX: d.arenaAdjustedXCord * flipFactor, 
+      displayY: d.arenaAdjustedYCord * flipFactor
+    };
+  });
     const combinedShots = [...leftShots, ...rightShots];
 
     let combinedContours = [];
